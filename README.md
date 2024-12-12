@@ -5,7 +5,7 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
 1. **Conectar ao servidor via SSH**:
    Utilize o comando abaixo para acessar o servidor e redirecionar as portas necessárias para o ambiente local:
    ```bash
-   ssh -L 8104:127.0.0.1:8104 -L 9001:127.0.0.4:9001 deepracer@10.8.8.10
+   ssh -L 8104:localhost:8104 -L 9001:localhost:9001 deepracer@10.8.8.10
    ```
 
    - A porta **8104** é usada para a interface de visualização do treinamento.
