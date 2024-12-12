@@ -5,10 +5,10 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
 1. **Conectar ao servidor via SSH**:
    Utilize o comando abaixo para acessar o servidor e redirecionar as portas necessárias para o ambiente local:
    ```bash
-   ssh -L 8102:127.0.0.1:8102 -L 9001:127.0.0.2:9001 deepracer@10.8.8.10
+   ssh -L 8104:127.0.0.1:8104 -L 9001:127.0.0.4:9001 deepracer@10.8.8.10
    ```
 
-   - A porta **8102** é usada para a interface de visualização do treinamento.
+   - A porta **8104** é usada para a interface de visualização do treinamento.
    - A porta **9001** é usada para o acesso ao MinIO, que é onde os modelos e outros arquivos são armazenados.
 
    ![Imagem 1: Conexão via SSH](./imgs/ssh.png)
@@ -32,8 +32,6 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
    source bin/activate.sh run4.env
    ```
 
-   ![Imagem 2: Ativação do Ambiente](./imgs/activate.png)
-
 ---
 
 ## **2. Como selecionar uma pista para treinamento**
@@ -48,7 +46,7 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
      WORLD_NAME=InteliCustomTrack
      ```
 
-   ![Imagem 3: Alteração do WORLD_NAME](./imgs/world_name_antigo.png)
+   ![Imagem 2: Alteração do WORLD_NAME](./imgs/world_name_exemplo.png)
 
 2. **Salvar e aplicar a configuração**:
    Após editar o arquivo, aplique as mudanças com o comando:
@@ -61,18 +59,18 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
 ## **3. Como selecionar os modelos de RL disponíveis**
 
 1. **Editar o arquivo `model_metadata.json`**:
-   Abra o arquivo `model_metadata.json` localizado em `custom_files` e altere o valor da chave `training_algorithm` para o algoritmo desejado (por exemplo, `ppo`):
+   Abra o arquivo `model_metadata.json` localizado em `custom_files` e altere o valor da chave `training_algorithm` para o algoritmo desejado:
    ```bash
    vi custom_files/model_metadata.json
    ```
    - Exemplo de conteúdo:
      ```json
      {
-         "training_algorithm": "ppo"
+         "training_algorithm": "clipped_ppo"
      }
      ```
 
-   ![Imagem 4: Edição do Arquivo Model Metadata](./imgs/model_metadata.png)
+   ![Imagem 3: Edição do Arquivo Model Metadata](./imgs/model_metadata.png)
 
 2. **Atualizar os arquivos customizados**:
    Para garantir que as alterações no arquivo de configuração sejam aplicadas corretamente, execute os seguintes comandos:
@@ -96,7 +94,7 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
      }
      ```
 
-   ![Imagem 5: Configuração de Hiperparâmetros](./imgs/hyperparameters.png)
+   ![Imagem 4: Configuração de Hiperparâmetros](./imgs/hyperparameters.png)
 
 2. **Aplicar as alterações**:
    Após editar o arquivo de hiperparâmetros, aplique as mudanças com o seguinte comando:
@@ -114,7 +112,7 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
    vi run4.env
    ```
 
-   ![Imagem 6: Edição do Run4 Env](./imgs/run4.env.png)
+   ![Imagem 5: Edição do Run4 Env](./imgs/run4.env.png)
 
 2. **Salvar e aplicar as alterações**:
    Após editar o arquivo, aplique as configurações:
@@ -137,7 +135,9 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
      cat system4.env
      ```
 
-   ![Imagem 7: Variáveis de Ambiente Run4](./imgs/cat.run4.env.png)
+   ![Imagem 6: Variáveis de Ambiente Run4](./imgs/cat.run4.env.png)
+
+   ![Imagem 7: Variáveis de Sistema Run4](./imgs/cat.system4.env.png)
 
 ---
 
@@ -164,8 +164,6 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
    dr-start-evaluation
    ```
 
-   ![Imagem 9: Avaliação em Execução](./imgs/start_evaluation.png)
-
 2. **Visualizar os resultados**:
    Os resultados da avaliação estarão disponíveis no MinIO, onde você pode visualizar as métricas detalhadas e outras informações sobre o desempenho.
 
@@ -176,7 +174,7 @@ Este documento fornece instruções detalhadas sobre como acessar, configurar, t
 1. **Baixar o modelo treinado**:
    Acesse o MinIO para fazer o download do modelo treinado após a avaliação. O arquivo gerado estará disponível para ser baixado.
 
-   ![Imagem 10: Download do Modelo](./imgs/model_download.png)
+   ![Imagem 9: Download do Modelo](./imgs/model_download.png)
 
 2. **Subir o modelo para o carrinho**:
    Conecte o carrinho via USB e faça o upload do modelo treinado para ser executado no dispositivo.
